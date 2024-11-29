@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima</title>
+    <link rel="icon" type="image/clima" href="{{ url_for('static', filename='images/climasol.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center">
+        <!-- Título y Barra de Búsqueda -->
+        <div class="text-center mb-5">
+            <h1 class="titulo text-white mb-4">🌍 Consulta el Clima</h1>
+            <form method="POST" class="form-inline justify-content-center">
+                <input type="text" name="ciudad" class="form-control mr-2" placeholder="Ejemplo: Guayaquil" required>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+        </div>
+
+        <!-- Resultados -->
+        {% if weather_data %}
+            <div class="card text-white mt-4 p-3">
+                {% if weather_data.error %}
+                    <div class="alert alert-danger">
+                        {{ weather_data.error }}
+                    </div>
+                {% else %}
+                    <div class="resultados bg-dark text-white p-3 rounded">
+                        <h2 class="text-center mb-3">
+                            <img src="https://openweathermap.org/img/wn/{{ weather_data.icono }}@2x.png" alt="icono_clima">
+                            {{ weather_data.ciudad }}
+                        </h2>
+
+   <center><div class="col-md-6 d-flex justify-content-center align-items-center">
+        <img src="{{ url_for('static', filename='images/clima.jpg') }}" alt="Mapa relacionado" class="img-fluid custom-img">
+    </div></center>
+ 
+                        <ul class="list-unstyled">
+                            <li><strong>Temperatura:</strong> {{ weather_data.temperatura }}°C</li>
+                            <li><strong>Descripción:</strong> {{ weather_data.descripcion }}</li>
+                            <li><strong>Latitud:</strong> {{ weather_data.latitud }}</li>
+                            <li><strong>Longitud:</strong> {{ weather_data.longitud }}</li>
+                        </ul>
+                    </div>
+                {% endif %}
+        </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer class="bg-info text-center text-lg-start fixed-bottom">
+        <div class="text-center p-3" style="background-color:black">
+            2024 Copyright:
+            <a href="cv.html" target="_blank">Bryan Navarrete</a>
+</body>
+</html>
